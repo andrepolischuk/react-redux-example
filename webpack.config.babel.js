@@ -1,7 +1,6 @@
-'use strict';
-const webpack = require('webpack');
+import webpack from 'webpack';
 
-module.exports = {
+export default {
   devtool: '#cheap-source-map',
   entry: [
     './index'
@@ -35,4 +34,4 @@ module.exports = {
       colors: true
     }
   }
-};
+}
