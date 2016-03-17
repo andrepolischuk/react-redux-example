@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import autoprefixer from 'autoprefixer';
 
 const env = process.env.NODE_ENV;
 
@@ -21,15 +22,29 @@ const config = {
   module: {
     loaders: [
       {
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'postcss-loader'
+        ]
+      },
+      {
         test: /\.js$/,
+        exclude: /node_modules/,
         loaders: [
           'babel-loader'
-        ],
-        exclude: /node_modules/,
-        include: __dirname
+        ]
       }
     ]
   },
+  postcss: [
+    autoprefixer({
+      browsers: [
+        'last 2 versions'
+      ]
+    })
+  ],
   devServer: {
     inline: true,
     historyApiFallback: true,

@@ -18,6 +18,8 @@ npm start
 * Webpack
 * Babel
 * Eslint
+* CSS modules
+* PostCSS
 
 ## License
 
