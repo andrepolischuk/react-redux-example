@@ -17,6 +17,7 @@ npm start
 * Redux
 * Webpack
 * Babel
+* Eslint
 
 ## License
 

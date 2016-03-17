@@ -26,7 +26,7 @@ export default {
     ]
   },
   devServer: {
-    inline : true,
+    inline: true,
     historyApiFallback: true,
     progress: true,
     port: 3000,
@@ -34,4 +34,4 @@ export default {
       colors: true
     }
   }
-}
+};
