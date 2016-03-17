@@ -1,6 +1,8 @@
 import webpack from 'webpack';
 
-export default {
+const env = process.env.NODE_ENV;
+
+const config = {
   devtool: '#cheap-source-map',
   entry: [
     './index'
@@ -11,7 +13,10 @@ export default {
     publicPath: '/dist/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env)
+    })
   ],
   module: {
     loaders: [
@@ -35,3 +40,19 @@ export default {
     }
   }
 };
+
+if (env === 'production') {
+  config.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        pure_getters: true,
+        unsafe: true,
+        unsafe_comps: true,
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  );
+}
+
+export default config;
