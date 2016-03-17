@@ -1,7 +1,7 @@
 'use strict';
 const webpack = require('webpack');
 
-const config = {
+module.exports = {
   devtool: '#cheap-source-map',
   entry: [
     './index'
@@ -19,25 +19,20 @@ const config = {
       {
         test: /\.js$/,
         loaders: [
-          'babel'
+          'babel-loader'
         ],
         exclude: /node_modules/,
         include: __dirname
       }
     ]
+  },
+  devServer: {
+    inline : true,
+    historyApiFallback: true,
+    progress: true,
+    port: 3000,
+    stats: {
+      colors: true
+    }
   }
 };
-
-const devConfig = {
-  devtool: '#cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client'
-  ].concat(config.entry),
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ].concat(config.plugins)
-}
-
-module.exports = process.env.NODE_ENV === 'development' ?
-  Object.assign(config, devConfig) :
-  config;
