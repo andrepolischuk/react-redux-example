@@ -3,7 +3,16 @@ html, body {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+
 .app {
   padding: 50px;
   font-size: 16px;
+}
+
+.fetching {
+  opacity: 0.5;
 }

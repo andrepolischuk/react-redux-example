@@ -4,7 +4,7 @@
   "description": "An example of React Redux application",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js containers",
+    "lint": "eslint *.js actions containers reducers store",
     "build": "cross-env NODE_ENV=production webpack -p",
     "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot"
   },
@@ -20,7 +20,12 @@
   "homepage": "https://github.com/andrepolischuk/react-redux-example",
   "dependencies": {
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.0.1",
+    "whatwg-fetch": "^0.11.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",

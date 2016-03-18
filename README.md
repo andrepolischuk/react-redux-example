@@ -14,7 +14,7 @@ npm start
 ## Under the hood
 
 * [x] [React](https://github.com/facebook/react)
-* [ ] [Redux](https://github.com/reactjs/redux)
+* [x] [Redux](https://github.com/reactjs/redux)
 * [ ] [React Redux Router](https://github.com/reactjs/react-router-redux)
 * [x] [Webpack](https://github.com/webpack/webpack)
 * [x] [Babel](https://github.com/babel/babel)
