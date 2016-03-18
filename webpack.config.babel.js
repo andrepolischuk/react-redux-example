@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
+import nested from 'postcss-nested';
 
 const env = process.env.NODE_ENV;
 
@@ -44,9 +45,13 @@ const config = {
       browsers: [
         'last 2 versions'
       ]
-    })
-  ],
-  devServer: {
+    }),
+    nested
+  ]
+};
+
+if (env === 'development') {
+  config.devServer = {
     inline: true,
     historyApiFallback: true,
     progress: true,
@@ -54,8 +59,8 @@ const config = {
     stats: {
       colors: true
     }
-  }
-};
+  };
+}
 
 if (env === 'production') {
   config.plugins.push(

@@ -20,21 +20,19 @@ export default class App extends Component {
 
   render() {
     const { data, isFetching } = this.props;
-    const isEmpty = typeof data.name !== 'string';
+    const isEmpty = !data.name;
 
     return (
-      <div className={styles.app}>
-        <div className={isFetching ? styles.fetching : ''}>
-          {isEmpty && isFetching
-            ? <h3>Loading...</h3>
-            : <h3>Hello {data.name}!</h3>
-          }
-          {!isFetching &&
-            <a href="#" onClick={this.handleRefreshClick}>
-              Refresh
-            </a>
-          }
-        </div>
+      <div className={isFetching ? styles.fetching : styles.normal}>
+        {isEmpty && isFetching
+          ? <h3>Loading...</h3>
+          : <h3>Hello {data.name}!</h3>
+        }
+        {!isFetching &&
+          <a href="#" onClick={this.handleRefreshClick}>
+            Refresh
+          </a>
+        }
       </div>
     );
   }
