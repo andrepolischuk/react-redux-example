@@ -1,21 +1,15 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { persistState } from 'redux-devtools';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
 
-const enhancer = compose(
-  applyMiddleware(thunk),
-  DevTools.instrument(),
-  persistState(
-    window.location.href.match(
-      /[?&]debug_session=([^&#]+)\b/
-    )
-  )
-);
+const createStoreWithMiddlewares = compose(
+  applyMiddleware(thunk, createLogger()),
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+)(createStore);
 
 export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStoreWithMiddlewares(rootReducer, initialState);
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {

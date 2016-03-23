@@ -22,7 +22,7 @@ npm start
 * [x] [CSS modules](https://github.com/css-modules/css-modules)
 * [x] [PostCSS](https://github.com/postcss/postcss)
 * [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
-* [x] [Redux DevTools](https://github.com/gaearon/redux-devtools)
+* [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 * [ ] Async application
 * [x] [Testing with AVA](https://github.com/sindresorhus/ava)
 
