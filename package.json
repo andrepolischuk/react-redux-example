@@ -4,10 +4,9 @@
   "description": "An example of React Redux application",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js actions constants containers reducers store test",
     "build": "cross-env NODE_ENV=production webpack -p",
     "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot",
-    "test": "ava --require babel-register"
+    "test": "eslint . && ava --require babel-register"
   },
   "repository": {
     "type": "git",
