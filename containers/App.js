@@ -29,7 +29,7 @@ export default class App extends Component {
           : <h3>Hello {data.name}!</h3>
         }
         {!isFetching &&
-          <a href="#" onClick={this.handleRefreshClick}>
+          <a href='#' onClick={this.handleRefreshClick}>
             Refresh
           </a>
         }
