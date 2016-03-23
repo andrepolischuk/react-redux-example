@@ -22,8 +22,8 @@ npm start
 * [x] [CSS modules](https://github.com/css-modules/css-modules)
 * [x] [PostCSS](https://github.com/postcss/postcss)
 * [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
-* [X] [Redux DevTools](https://github.com/gaearon/redux-devtools)
-* [ ] Tests
+* [x] [Redux DevTools](https://github.com/gaearon/redux-devtools)
+* [x] Tests with [AVA](https://github.com/sindresorhus/ava)
 
 ## License
 
