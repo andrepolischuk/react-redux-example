@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint *.js actions constants containers reducers store",
     "build": "cross-env NODE_ENV=production webpack -p",
-    "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot"
+    "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot",
   },
   "repository": {
     "type": "git",
