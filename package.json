@@ -24,7 +24,6 @@
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1",
-    "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
@@ -41,6 +40,9 @@
     "eslint-plugin-require-path-exists": "^1.1.5",
     "postcss-loader": "^0.8.2",
     "postcss-nested": "^1.0.0",
+    "redux-devtools": "^3.1.1",
+    "redux-devtools-dock-monitor": "^1.1.0",
+    "redux-devtools-log-monitor": "^1.0.5",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
