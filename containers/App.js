@@ -44,13 +44,16 @@ App.propTypes = {
   isFetching: PropTypes.bool.isRequired
 };
 
-function mapStateToProps(state) {
-  const props = state || {
-    isFetching: true,
+function mapStateToProps({ user }) {
+  const { isFetching, data } = user || {
+    isFetching: false,
     data: {}
   };
 
-  return props;
+  return {
+    isFetching,
+    data
+  };
 }
 
 export default connect(mapStateToProps)(App);

@@ -1,3 +1,4 @@
+import { combineReducers } from 'redux';
 import { REQUEST_USER, RECEIVE_USER } from '../actions';
 
 const initialState = {
@@ -5,7 +6,7 @@ const initialState = {
   data: {}
 };
 
-export default function rootReducer(state = initialState, action) {
+function user(state = initialState, action) {
   switch (action.type) {
     case REQUEST_USER:
       return Object.assign({}, state, {
@@ -20,3 +21,9 @@ export default function rootReducer(state = initialState, action) {
       return state;
   }
 }
+
+const rootReducer = combineReducers({
+  user
+});
+
+export default rootReducer;
