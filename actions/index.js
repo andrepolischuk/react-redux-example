@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch';
-
-export const REQUEST_USER = 'REQUEST_USER';
-export const RECEIVE_USER = 'RECEIVE_USER';
+import { REQUEST_USER, RECEIVE_USER } from '../constants/ActionTypes';
 
 function requestUser() {
   return {

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { REQUEST_USER, RECEIVE_USER } from '../actions';
+import { REQUEST_USER, RECEIVE_USER } from '../constants/ActionTypes';
 
 const initialState = {
   isFetching: false,

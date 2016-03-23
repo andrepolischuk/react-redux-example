@@ -4,7 +4,7 @@
   "description": "An example of React Redux application",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint *.js actions containers reducers store",
+    "lint": "eslint *.js actions constants containers reducers store",
     "build": "cross-env NODE_ENV=production webpack -p",
     "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot"
   },
