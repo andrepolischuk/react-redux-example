@@ -50,18 +50,6 @@ const config = {
   ]
 };
 
-if (env === 'development') {
-  config.devServer = {
-    inline: true,
-    historyApiFallback: true,
-    progress: true,
-    port: 3000,
-    stats: {
-      colors: true
-    }
-  };
-}
-
 if (env === 'production') {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
@@ -74,6 +62,16 @@ if (env === 'production') {
       }
     })
   );
+} else {
+  config.devServer = {
+    inline: true,
+    historyApiFallback: true,
+    progress: true,
+    port: 3000,
+    stats: {
+      colors: true
+    }
+  };
 }
 
 export default config;

@@ -1,12 +1,5 @@
-import React from 'react';
-import App from './App';
-import DevTools from './DevTools';
-
-export default function Root() {
-  return (
-    <div>
-      <App />
-      <DevTools />
-    </div>
-  );
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./Root.prod');
+} else {
+  module.exports = require('./Root.dev');
 }
