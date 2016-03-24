@@ -2,23 +2,23 @@ import test from 'ava';
 import nock from 'nock';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fetchUserIfNeeded } from '../actions';
-import { REQUEST_USER, RECEIVE_USER } from '../constants/ActionTypes';
+import { fetchApiIfNeeded } from '../actions';
+import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
 
 const mockStore = configureStore([thunk]);
 const store = mockStore({});
 
 nock('http://localhost:3000')
-  .get('/user.json')
+  .get('/api.json')
   .reply(200, {
-    name: 'Ivan'
+    result: true
   });
 
-test('fetch user', async t => {
-  await store.dispatch(fetchUserIfNeeded());
+test('fetch api', async t => {
+  await store.dispatch(fetchApiIfNeeded());
 
   t.same(store.getActions(), [
-    { type: REQUEST_USER },
-    { type: RECEIVE_USER, data: { name: 'Ivan' } }
+    { type: REQUEST_API },
+    { type: RECEIVE_API, result: true }
   ]);
 });

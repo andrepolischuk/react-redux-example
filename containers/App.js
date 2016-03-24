@@ -1,36 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchUserIfNeeded } from '../actions';
+import { fetchApiIfNeeded } from '../actions';
 import styles from './App.css';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.handleRefreshClick = this.handleRefreshClick.bind(this);
+    this.handleFetchClick = this.handleFetchClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchUserIfNeeded());
+    this.props.dispatch(fetchApiIfNeeded());
   }
 
-  handleRefreshClick(event) {
+  handleFetchClick(event) {
     event.preventDefault();
-    this.props.dispatch(fetchUserIfNeeded());
+    this.props.dispatch(fetchApiIfNeeded());
   }
 
   render() {
-    const { data, isFetching } = this.props;
-    const isEmpty = !data.name;
+    const { isFetching, result, name = 'world' } = this.props;
 
     return (
       <div className={isFetching ? styles.fetching : styles.normal}>
-        {isEmpty && isFetching
+        {!result && isFetching
           ? <h3>Loading...</h3>
-          : <h3>Hello {data.name}!</h3>
+          : <h3>Hello {name}!</h3>
         }
         {!isFetching &&
-          <a href='#' onClick={this.handleRefreshClick}>
-            Refresh
+          <a href='#' onClick={this.handleFetchClick}>
+            Fetch
           </a>
         }
       </div>
@@ -39,20 +38,22 @@ export default class App extends Component {
 }
 
 App.propTypes = {
-  data: PropTypes.object.isRequired,
+  name: PropTypes.string,
+  result: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 };
 
-function mapStateToProps({ user }) {
-  const { isFetching, data } = user || {
-    isFetching: false,
-    data: {}
+function mapStateToProps({ api }, ownProps) {
+  const { result, isFetching } = api || {
+    result: false,
+    isFetching: false
   };
 
   return {
+    result,
     isFetching,
-    data
+    name: ownProps.params.name
   };
 }
 

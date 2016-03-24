@@ -1,28 +1,28 @@
 import test from 'ava';
-import reducer from '../reducers/user';
-import { REQUEST_USER, RECEIVE_USER } from '../constants/ActionTypes';
+import reducer from '../reducers/api';
+import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
 
 test('return the initial state', t => {
   t.same(reducer(undefined, {}), {
     isFetching: false,
-    data: {}
+    result: false
   });
 });
 
-test('return handle REQUEST_USER', t => {
+test('handle REQUEST_API', t => {
   t.same(reducer({}, {
-    type: REQUEST_USER
+    type: REQUEST_API
   }), {
     isFetching: true
   });
 });
 
-test('return handle RECEIVE_USER', t => {
+test('handle RECEIVE_API', t => {
   t.same(reducer({ isFetching: true }, {
-    type: RECEIVE_USER,
-    data: { name: 'Ivan' }
+    type: RECEIVE_API,
+    result: true
   }), {
     isFetching: false,
-    data: { name: 'Ivan' }
+    result: true
   });
 });

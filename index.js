@@ -12,7 +12,9 @@ const history = syncHistoryWithStore(browserHistory, store);
 render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/' component={App} />
+      <Route path='/' component={App}>
+        <Route path=':name' />
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('root')

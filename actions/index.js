@@ -1,20 +1,20 @@
 import fetch from 'isomorphic-fetch';
-import { REQUEST_USER, RECEIVE_USER } from '../constants/ActionTypes';
+import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
 
-function requestUser() {
+function requestApi() {
   return {
-    type: REQUEST_USER
+    type: REQUEST_API
   };
 }
 
-function recieveUser(json) {
+function recieveApi({ result }) {
   return {
-    type: RECEIVE_USER,
-    data: json
+    result,
+    type: RECEIVE_API
   };
 }
 
-function shouldFetchUser(state) {
+function shouldFetchApi(state) {
   return !state.isFetching;
 }
 
@@ -26,18 +26,18 @@ function fakeTimeout(json) {
   });
 }
 
-function fetchUser() {
+function fetchApi() {
   return dispatch => {
-    dispatch(requestUser());
+    dispatch(requestApi());
 
-    return fetch('http://localhost:3000/user.json')
+    return fetch('http://localhost:3000/api.json')
       .then(fakeTimeout)
       .then(responce => responce.json())
-      .then(json => dispatch(recieveUser(json)));
+      .then(json => dispatch(recieveApi(json)));
   };
 }
 
-export function fetchUserIfNeeded() {
+export function fetchApiIfNeeded() {
   return (dispatch, getState) =>
-    shouldFetchUser(getState()) && dispatch(fetchUser());
+    shouldFetchApi(getState()) && dispatch(fetchApi());
 }

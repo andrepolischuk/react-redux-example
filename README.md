@@ -23,8 +23,8 @@ npm start
 * [x] [PostCSS](https://github.com/postcss/postcss)
 * [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
 * [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
-* [ ] Async application
 * [x] [Testing with AVA](https://github.com/sindresorhus/ava)
+* [x] Application with data fetching
 
 ## License
 
