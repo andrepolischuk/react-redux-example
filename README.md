@@ -15,7 +15,7 @@ npm start
 
 * [x] [React](https://github.com/facebook/react)
 * [x] [Redux](https://github.com/reactjs/redux)
-* [ ] [React Redux Router](https://github.com/reactjs/react-router-redux)
+* [x] [React Redux Router](https://github.com/reactjs/react-router-redux)
 * [x] [Webpack](https://github.com/webpack/webpack)
 * [x] [Babel](https://github.com/babel/babel)
 * [x] [Eslint](https://github.com/eslint/eslint)
