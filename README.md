@@ -8,7 +8,24 @@
 git clone https://github.com/andrepolischuk/react-redux-example
 cd react-redux-example
 npm install
+```
+
+## Run
+
+```sh
 npm start
+```
+
+## Test
+
+```sh
+npm test
+```
+
+## Build
+
+```sh
+npm run build
 ```
 
 ## Under the hood
