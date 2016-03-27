@@ -1,7 +1,7 @@
 {
   "name": "react-redux-example",
   "version": "0.0.0",
-  "description": "An example of React Redux application",
+  "description": "An example of React Redux async application",
   "main": "index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
