@@ -3,7 +3,8 @@
   "extends": "airbnb",
   "rules": {
     "comma-dangle": [2, "never"],
-    "jsx-quotes": [2, "prefer-single"]
+    "jsx-quotes": [2, "prefer-single"],
+    "array-bracket-spacing": [2, "always"]
   },
   "plugins": [
     "require-path-exists"

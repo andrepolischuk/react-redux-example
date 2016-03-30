@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { fetchApiIfNeeded } from '../actions';
 import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
 
-const mockStore = configureStore([thunk]);
+const mockStore = configureStore([ thunk ]);
 const store = mockStore({});
 
 nock('http://localhost:3000')
