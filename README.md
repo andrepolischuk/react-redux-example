@@ -38,7 +38,7 @@ npm run build
 * [x] [Babel](https://github.com/babel/babel)
 * [x] [CSS modules](https://github.com/css-modules/css-modules)
 * [x] [PostCSS](https://github.com/postcss/postcss)
-* [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
+* [x] [Cssnext](https://github.com/MoOx/postcss-cssnext)
 * [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
 * [x] [Eslint](https://github.com/eslint/eslint)
 * [x] [Testing with AVA](https://github.com/sindresorhus/ava)
