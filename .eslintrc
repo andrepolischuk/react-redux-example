@@ -2,9 +2,9 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "comma-dangle": [2, "never"],
-    "jsx-quotes": [2, "prefer-single"],
-    "array-bracket-spacing": [2, "always"]
+    "comma-dangle": ["error", "never"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "array-bracket-spacing": ["error", "always"]
   },
   "plugins": [
     "require-path-exists"
