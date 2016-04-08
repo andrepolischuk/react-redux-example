@@ -1,28 +1,38 @@
 import test from 'ava';
 import reducer from '../reducers/api';
-import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
+import { API_REQUEST, API_SUCCESS, API_FAILURE } from '../constants/ActionTypes';
 
 test('return the initial state', t => {
   t.same(reducer(undefined, {}), {
     isFetching: false,
-    result: false
+    result: null
   });
 });
 
-test('handle REQUEST_API', t => {
+test('handle API_REQUEST', t => {
   t.same(reducer({}, {
-    type: REQUEST_API
+    type: API_REQUEST
   }), {
     isFetching: true
   });
 });
 
-test('handle RECEIVE_API', t => {
+test('handle API_SUCCESS', t => {
   t.same(reducer({ isFetching: true }, {
-    type: RECEIVE_API,
+    type: API_SUCCESS,
     result: true
   }), {
     isFetching: false,
     result: true
+  });
+});
+
+test('handle API_FAILURE', t => {
+  t.same(reducer({ isFetching: true }, {
+    type: API_FAILURE,
+    error: true
+  }), {
+    isFetching: false,
+    result: null
   });
 });
