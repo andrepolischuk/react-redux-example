@@ -39,7 +39,7 @@ export default class App extends Component {
 
 App.propTypes = {
   name: PropTypes.string,
-  result: PropTypes.bool.isRequired,
+  result: PropTypes.bool,
   dispatch: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 };

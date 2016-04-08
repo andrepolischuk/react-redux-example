@@ -1,16 +1,24 @@
-import { REQUEST_API, RECEIVE_API } from '../constants/ActionTypes';
+import { API_REQUEST, API_SUCCESS, API_FAILURE } from '../constants/ActionTypes';
 
-export default function api(state = { isFetching: false, result: false }, action) {
+export default function api(state = { isFetching: false, result: null }, action) {
   switch (action.type) {
-    case REQUEST_API:
-      return Object.assign({}, state, {
+    case API_REQUEST:
+      return {
+        ...state,
         isFetching: true
-      });
-    case RECEIVE_API:
-      return Object.assign({}, state, {
+      };
+    case API_SUCCESS:
+      return {
+        ...state,
         isFetching: false,
         result: action.result
-      });
+      };
+    case API_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        result: null
+      };
     default:
       return state;
   }
