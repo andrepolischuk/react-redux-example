@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
 import webpack from 'webpack';
-import autoprefixer from 'autoprefixer';
-import nested from 'postcss-nested';
+import cssnext from 'postcss-cssnext';
 
 const env = process.env.NODE_ENV;
 
 const config = {
-  devtool: '#cheap-source-map',
   entry: [
     './index'
   ],
@@ -16,11 +14,12 @@ const config = {
     publicPath: '/dist/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(env)
-    })
+      'process.env': {
+        NODE_ENV: JSON.stringify(env)
+      }
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
   module: {
     loaders: [
@@ -28,7 +27,9 @@ const config = {
         test: /\.css$/,
         loaders: [
           'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          env === 'production' ?
+            'css-loader?modules&importLoaders=1' :
+            'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader'
         ]
       },
@@ -42,12 +43,7 @@ const config = {
     ]
   },
   postcss: [
-    autoprefixer({
-      browsers: [
-        'last 2 versions'
-      ]
-    }),
-    nested
+    cssnext
   ]
 };
 
@@ -61,7 +57,9 @@ if (env === 'production') {
         screw_ie8: true,
         warnings: false
       }
-    })
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.NoErrorsPlugin()
   );
 } else {
   config.devServer = {
