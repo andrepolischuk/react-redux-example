@@ -4,6 +4,13 @@ import { fetchApiIfNeeded } from '../actions';
 import styles from './App.css';
 
 export default class App extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    result: PropTypes.bool,
+    dispatch: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.handleFetchClick = this.handleFetchClick.bind(this);
@@ -36,13 +43,6 @@ export default class App extends Component {
     );
   }
 }
-
-App.propTypes = {
-  name: PropTypes.string,
-  result: PropTypes.bool,
-  dispatch: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool.isRequired
-};
 
 function mapStateToProps({ api }, ownProps) {
   const { result, isFetching } = api || {
