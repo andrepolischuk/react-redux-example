@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.3.5",
-    "ava": "^0.13.0",
+    "ava": "^0.14.0",
     "babel-eslint": "^6.0.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-class-properties": "^6.6.0",
@@ -45,7 +45,7 @@
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.3",
     "eslint-plugin-require-path-exists": "^1.1.5",
-    "nock": "^7.7.2",
+    "nock": "^8.0.0",
     "postcss-loader": "^0.8.2",
     "postcss-nested": "^1.0.0",
     "redux-logger": "^2.6.1",

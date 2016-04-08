@@ -3,14 +3,14 @@ import reducer from '../reducers/api';
 import { API_REQUEST, API_SUCCESS, API_FAILURE } from '../constants/ActionTypes';
 
 test('return the initial state', t => {
-  t.same(reducer(undefined, {}), {
+  t.deepEqual(reducer(undefined, {}), {
     isFetching: false,
     result: null
   });
 });
 
 test('handle API_REQUEST', t => {
-  t.same(reducer({}, {
+  t.deepEqual(reducer({}, {
     type: API_REQUEST
   }), {
     isFetching: true
@@ -18,7 +18,7 @@ test('handle API_REQUEST', t => {
 });
 
 test('handle API_SUCCESS', t => {
-  t.same(reducer({ isFetching: true }, {
+  t.deepEqual(reducer({ isFetching: true }, {
     type: API_SUCCESS,
     result: true
   }), {
@@ -28,7 +28,7 @@ test('handle API_SUCCESS', t => {
 });
 
 test('handle API_FAILURE', t => {
-  t.same(reducer({ isFetching: true }, {
+  t.deepEqual(reducer({ isFetching: true }, {
     type: API_FAILURE,
     error: true
   }), {

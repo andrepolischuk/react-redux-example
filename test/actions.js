@@ -23,7 +23,7 @@ test('success fetch api', async t => {
 
   await store.dispatch(fetchApiIfNeeded());
 
-  t.same(store.getActions(), [
+  t.deepEqual(store.getActions(), [
     { type: API_REQUEST },
     { type: API_SUCCESS, response: { result: true } }
   ]);
@@ -40,7 +40,7 @@ test('failed fetch api', async t => {
 
   await store.dispatch(fetchApiIfNeeded());
 
-  t.same(store.getActions(), [
+  t.deepEqual(store.getActions(), [
     { type: API_REQUEST },
     { type: API_FAILURE, error: true }
   ]);
