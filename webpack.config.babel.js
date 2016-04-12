@@ -28,8 +28,8 @@ const config = {
         loaders: [
           'style-loader',
           env === 'production' ?
-            'css-loader?modules&importLoaders=1' :
-            'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+            'css-loader?modules&camelCase&importLoaders=1' :
+            'css-loader?modules&camelCase&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
           'postcss-loader'
         ]
       },
