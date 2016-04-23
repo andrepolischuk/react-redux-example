@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchApiIfNeeded } from '../actions';
 import styles from './App.css';
 
-export default class App extends Component {
+class App extends Component {
   static propTypes = {
     name: PropTypes.string,
     result: PropTypes.bool,
