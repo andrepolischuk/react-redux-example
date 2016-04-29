@@ -2,35 +2,22 @@
 import webpack from 'webpack';
 import cssnext from 'postcss-cssnext';
 
-const env = process.env.NODE_ENV;
+const production = process.env.NODE_ENV === 'production';
 
-const config = {
-  entry: [
-    './index'
-  ],
+export default {
+  entry: './index',
   output: {
     filename: 'bundle.js',
     path: `${__dirname}/dist`,
     publicPath: '/dist/'
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(env)
-      }
-    }),
-    new webpack.optimize.OccurrenceOrderPlugin()
-  ],
   module: {
     loaders: [
       {
         test: /\.css$/,
         loaders: [
           'style-loader',
-          env === 'production' ?
-            'css-loader?modules&camelCase&importLoaders=1' :
-            'css-loader?modules&camelCase&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-          'postcss-loader'
+          'css-loader?modules&camelCase&importLoaders=1&localIdentName=[path][name]--[local]--[hash:base64:5]!postcss-loader'
         ]
       },
       {
@@ -44,33 +31,38 @@ const config = {
   },
   postcss: [
     cssnext
-  ]
-};
-
-if (env === 'production') {
-  config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        pure_getters: true,
-        unsafe: true,
-        unsafe_comps: true,
-        screw_ie8: true,
-        warnings: false
+  ],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.NoErrorsPlugin()
-  );
-} else {
-  config.devServer = {
-    inline: true,
-    historyApiFallback: true,
-    progress: true,
-    port: 3000,
-    stats: {
-      colors: true
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    ...production && [
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          pure_getters: true,
+          unsafe: true,
+          unsafe_comps: true,
+          screw_ie8: true,
+          warnings: false
+        }
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.NoErrorsPlugin()
+    ]
+  ],
+  ...!production && {
+    devServer: {
+      inline: true,
+      historyapifallback: true,
+      progress: true,
+      port: 3000,
+      stats: {
+        colors: true
+      }
     }
-  };
-}
+  }
+};
 
-export default config;
