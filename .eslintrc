@@ -7,6 +7,8 @@
     "array-bracket-spacing": ["error", "always"]
   },
   "plugins": [
-    "require-path-exists"
+    "import",
+    "react",
+    "jsx-a11y"
   ]
 }
