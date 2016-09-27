@@ -56,7 +56,7 @@ export default {
   ...!production && {
     devServer: {
       inline: true,
-      historyapifallback: true,
+      historyApiFallback: true,
       progress: true,
       port: 3000,
       stats: {
