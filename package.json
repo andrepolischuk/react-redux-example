@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack -p",
     "start": "cross-env NODE_ENV=development webpack-dev-server -d --hot",
-    "test": "eslint . && ava --require babel-register"
+    "test": "eslint . && ava"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "redux-thunk": "^2.0.1"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.18.2",
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-class-properties": "^6.8.0",
@@ -53,5 +53,10 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   }
 }
