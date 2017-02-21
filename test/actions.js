@@ -12,36 +12,42 @@ test.afterEach(() => {
   nock.cleanAll();
 });
 
-test('success fetch api', async t => {
+test('fetch status api', async t => {
   const store = mockStore({});
 
-  nock('http://localhost:3000')
-    .get('/api.json')
-    .reply(200, {
-      result: true
-    });
+  nock('https://status.github.com')
+    .get('/api/status.json')
+    .reply(200);
 
   await store.dispatch(fetchApiIfNeeded());
 
   t.deepEqual(store.getActions(), [
     { type: API_REQUEST },
-    { type: API_SUCCESS, response: { result: true } }
+    {
+      type: API_FAILURE,
+      error: new ReferenceError('window is not defined')
+    }
   ]);
 });
 
-test('failed fetch api', async t => {
+test('fetch user api', async t => {
   const store = mockStore({});
 
-  nock('http://localhost:3000')
-    .get('/api.json')
+  nock('https://api.github.com')
+    .get('/users/foo')
     .reply(200, {
-      error: true
+      name: 'Foo'
     });
 
-  await store.dispatch(fetchApiIfNeeded());
+  await store.dispatch(fetchApiIfNeeded('foo'));
 
   t.deepEqual(store.getActions(), [
     { type: API_REQUEST },
-    { type: API_FAILURE, error: true }
+    {
+      type: API_SUCCESS,
+      payload: {
+        name: 'Foo'
+      }
+    }
   ]);
 });

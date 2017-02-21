@@ -1,11 +1,14 @@
 import fetch from 'isomorphic-fetch';
+import fetchJsonp from 'fetch-jsonp';
 
-function callApi() {
-  return fetch('http://localhost:3000/api.json')
+function callApi(endpoint, jsonp) {
+  const fetchFn = jsonp ? fetchJsonp : fetch;
+
+  return fetchFn(endpoint)
     .then(response => response.json())
     .then(response => {
-      const { error } = response;
-      if (error) return Promise.reject(error);
+      const { message } = response;
+      if (message) return Promise.reject(message);
       return { ...response };
     });
 }
@@ -19,7 +22,7 @@ export default () => next => action => {
     return next(action);
   }
 
-  const { types } = callApiOptions;
+  const { endpoint, jsonp, types } = callApiOptions;
   const [ requestType, successType, failureType ] = types;
 
   function actionWith(data) {
@@ -30,10 +33,10 @@ export default () => next => action => {
 
   next(actionWith({ type: requestType }));
 
-  return callApi()
-    .then(response => next(actionWith({
+  return callApi(endpoint, jsonp)
+    .then(payload => next(actionWith({
       type: successType,
-      response
+      payload
     })))
     .catch(error => next(actionWith({
       type: failureType,

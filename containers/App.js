@@ -6,7 +6,7 @@ import styles from './App.css';
 class App extends Component {
   static propTypes = {
     name: PropTypes.string,
-    result: PropTypes.bool,
+    result: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired
   };
@@ -17,43 +17,48 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchApiIfNeeded());
+    this.props.dispatch(fetchApiIfNeeded(this.props.name));
   }
 
   handleFetchClick(event) {
     event.preventDefault();
-    this.props.dispatch(fetchApiIfNeeded());
+    this.props.dispatch(fetchApiIfNeeded(this.props.name));
   }
 
   render() {
-    const { isFetching, result, name = 'world' } = this.props;
+    const { isFetching, result, name } = this.props;
 
     return (
       <div className={isFetching ? styles.fetching : styles.normal}>
         {!result && isFetching
           ? <h3>Loading...</h3>
-          : <h3>Hello {name}!</h3>
+          : <h3>{name || 'Status'}</h3>
+        }
+        {result && !name &&
+          <div>
+            <p>{result.status}</p>
+            <p>{new Date(result.last_updated).toString()}</p>
+          </div>
+        }
+        {result && name &&
+          <div>
+            <p>{result.name}</p>
+            <p>{result.bio}</p>
+          </div>
         }
         {!isFetching &&
-          <a href='#' onClick={this.handleFetchClick}>
-            Fetch
-          </a>
+          <a href='#' onClick={this.handleFetchClick}>Fetch</a>
         }
       </div>
     );
   }
 }
 
-function mapStateToProps({ api }, ownProps) {
-  const { result, isFetching } = api || {
-    result: false,
-    isFetching: false
-  };
-
+function mapStateToProps({ api: { result, isFetching } }, props) {
   return {
     result,
     isFetching,
-    name: ownProps.params.name
+    name: props.params.name
   };
 }
 

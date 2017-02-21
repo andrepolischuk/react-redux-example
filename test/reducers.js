@@ -20,17 +20,21 @@ test('handle API_REQUEST', t => {
 test('handle API_SUCCESS', t => {
   t.deepEqual(reducer({ isFetching: true }, {
     type: API_SUCCESS,
-    result: true
+    payload: {
+      status: 'good'
+    }
   }), {
     isFetching: false,
-    result: true
+    result: {
+      status: 'good'
+    }
   });
 });
 
 test('handle API_FAILURE', t => {
   t.deepEqual(reducer({ isFetching: true }, {
     type: API_FAILURE,
-    error: true
+    error: 'Not Found'
   }), {
     isFetching: false,
     result: null

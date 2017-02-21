@@ -11,7 +11,7 @@ export default function api(state = { isFetching: false, result: null }, action)
       return {
         ...state,
         isFetching: false,
-        result: action.result
+        result: action.payload
       };
     case API_FAILURE:
       return {
