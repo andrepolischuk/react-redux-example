@@ -1,63 +1,90 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { fetchApiIfNeeded } from '../actions';
+import { addUser, deleteUser, handleError } from '../actions';
 import styles from './App.css';
 
 class App extends Component {
   static propTypes = {
     name: PropTypes.string,
-    result: PropTypes.object,
-    dispatch: PropTypes.func.isRequired,
-    isFetching: PropTypes.bool.isRequired
+    users: PropTypes.array,
+    error: PropTypes.string,
+    fetching: PropTypes.bool.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.handleFetchClick = this.handleFetchClick.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchApiIfNeeded(this.props.name));
+    const { name } = this.props;
+
+    if (name) {
+      this.props.dispatch(addUser(name));
+    }
   }
 
-  handleFetchClick(event) {
+  componentWillReceiveProps({ name }) {
+    if (name && name !== this.props.name) {
+      this.props.dispatch(addUser(name));
+    }
+  }
+
+  submit(event) {
+    const { value } = event.target.querySelector('input');
+
     event.preventDefault();
-    this.props.dispatch(fetchApiIfNeeded(this.props.name));
+
+    if (value) {
+      this.props.dispatch(addUser(value));
+    }
   }
 
   render() {
-    const { isFetching, result, name } = this.props;
+    const { users, error, fetching } = this.props;
 
     return (
-      <div className={isFetching ? styles.fetching : styles.normal}>
-        {!result && isFetching
-          ? <h3>Loading...</h3>
-          : <h3>{name || 'Status'}</h3>
+      <div className={fetching ? styles.fetching : styles.normal}>
+        <form onSubmit={event => this.submit(event)}>
+          <input
+            type='text'
+            placeholder='Type github username...'
+            tabIndex='0'
+            autoFocus
+          />
+          <button type='submit'>Add</button>
+        </form>
+        {error &&
+          <p className={styles.error}>
+            {error}&nbsp;
+            <button
+              type='button'
+              onClick={() => this.props.dispatch(handleError(null))}
+            >
+              Close
+            </button>
+          </p>
         }
-        {result && !name &&
-          <div>
-            <p>{result.status}</p>
-            <p>{new Date(result.last_updated).toString()}</p>
-          </div>
-        }
-        {result && name &&
-          <div>
-            <p>{result.name}</p>
-            <p>{result.bio}</p>
-          </div>
-        }
-        {!isFetching &&
-          <a href='#' onClick={this.handleFetchClick}>Fetch</a>
-        }
+        {users.map(user => (
+          <p key={user.login}>
+            <a href={user.html_url}>{user.name}</a>&nbsp;
+            <small>{user.login}</small>&nbsp;
+            <button onClick={() => this.props.dispatch(deleteUser(user.login))}>
+              Delete
+            </button>
+          </p>
+        ))}
       </div>
     );
   }
 }
 
-function mapStateToProps({ api: { result, isFetching } }, props) {
+function mapStateToProps({ user: { users, fetching, error } }, props) {
   return {
-    result,
-    isFetching,
+    users,
+    error,
+    fetching,
     name: props.params.name
   };
 }

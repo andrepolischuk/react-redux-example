@@ -1,42 +1,89 @@
 import test from 'ava';
-import reducer from '../reducers/api';
-import { API_REQUEST, API_SUCCESS, API_FAILURE } from '../constants/ActionTypes';
+import reducer, { initialState } from '../reducers/user';
+
+import {
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
+  DELETE_USER,
+  HANDLE_ERROR
+} from '../actions';
 
 test('return the initial state', t => {
-  t.deepEqual(reducer(undefined, {}), {
-    isFetching: false,
-    result: null
-  });
+  t.deepEqual(reducer(undefined, {}), initialState);
 });
 
-test('handle API_REQUEST', t => {
-  t.deepEqual(reducer({}, {
-    type: API_REQUEST
+test('handle FETCH_USER_REQUEST', t => {
+  t.deepEqual(reducer(initialState, {
+    type: FETCH_USER_REQUEST
   }), {
-    isFetching: true
+    users: [],
+    error: null,
+    fetching: true
   });
 });
 
-test('handle API_SUCCESS', t => {
-  t.deepEqual(reducer({ isFetching: true }, {
-    type: API_SUCCESS,
+test('handle FETCH_USER_SUCCESS', t => {
+  t.deepEqual(reducer({
+    users: [],
+    error: null,
+    fetching: true
+  }, {
+    type: FETCH_USER_SUCCESS,
     payload: {
-      status: 'good'
+      login: 'andrepolischuk'
     }
   }), {
-    isFetching: false,
-    result: {
-      status: 'good'
-    }
+    users: [
+      {
+        login: 'andrepolischuk'
+      }
+    ],
+    error: null,
+    fetching: false
   });
 });
 
-test('handle API_FAILURE', t => {
-  t.deepEqual(reducer({ isFetching: true }, {
-    type: API_FAILURE,
-    error: 'Not Found'
+test('handle FETCH_USER_FAILURE', t => {
+  t.deepEqual(reducer({
+    users: [],
+    error: null,
+    fetching: true
+  }, {
+    type: FETCH_USER_FAILURE
   }), {
-    isFetching: false,
-    result: null
+    users: [],
+    error: null,
+    fetching: false
+  });
+});
+
+test('handle DELETE_USER', t => {
+  t.deepEqual(reducer({
+    users: [
+      {
+        login: 'andrepolischuk'
+      }
+    ],
+    error: null,
+    fetching: false
+  }, {
+    type: DELETE_USER,
+    payload: {
+      login: 'andrepolischuk'
+    }
+  }), initialState);
+});
+
+test('handle HANDLE_ERROR', t => {
+  t.deepEqual(reducer(initialState, {
+    type: HANDLE_ERROR,
+    payload: {
+      error: 'Error'
+    }
+  }), {
+    users: [],
+    error: 'Error',
+    fetching: false
   });
 });

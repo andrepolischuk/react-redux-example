@@ -1,14 +1,11 @@
 import fetch from 'isomorphic-fetch';
-import fetchJsonp from 'fetch-jsonp';
 
-function callApi(endpoint, jsonp) {
-  const fetchFn = jsonp ? fetchJsonp : fetch;
-
-  return fetchFn(endpoint)
+function callApi(endpoint) {
+  return fetch(`https://api.github.com/${endpoint}`)
     .then(response => response.json())
     .then(response => {
-      const { message } = response;
-      if (message) return Promise.reject(message);
+      const { error } = response;
+      if (error) return Promise.reject(error);
       return { ...response };
     });
 }
@@ -22,7 +19,7 @@ export default () => next => action => {
     return next(action);
   }
 
-  const { endpoint, jsonp, types } = callApiOptions;
+  const { types, endpoint } = callApiOptions;
   const [ requestType, successType, failureType ] = types;
 
   function actionWith(data) {
@@ -33,13 +30,14 @@ export default () => next => action => {
 
   next(actionWith({ type: requestType }));
 
-  return callApi(endpoint, jsonp)
+  return callApi(endpoint)
     .then(payload => next(actionWith({
-      type: successType,
-      payload
+      payload,
+      type: successType
     })))
-    .catch(error => next(actionWith({
-      type: failureType,
-      error
+    .catch(payload => next(actionWith({
+      payload,
+      error: true,
+      type: failureType
     })));
 };

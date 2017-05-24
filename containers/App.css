@@ -17,3 +17,7 @@ html, body {
 .fetching {
   opacity: 0.5;
 }
+
+.error {
+  color: red;
+}

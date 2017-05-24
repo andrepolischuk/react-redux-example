@@ -1,38 +1,52 @@
 import { CALL_API } from '../middleware/api';
-import { API_REQUEST, API_SUCCESS, API_FAILURE } from '../constants/ActionTypes';
 
-function fetchStatusApi() {
+export const HANDLE_ERROR = 'HANDLE_ERROR';
+
+export function handleError(error) {
   return {
-    [CALL_API]: {
-      types: [
-        API_REQUEST,
-        API_SUCCESS,
-        API_FAILURE
-      ],
-      endpoint: 'https://status.github.com/api/status.json',
-      jsonp: true
+    type: HANDLE_ERROR,
+    payload: {
+      error
     }
   };
 }
 
-function fetchUserApi(name) {
+export const FETCH_USER_REQUEST = 'FETCH_USER_REQUEST';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
+
+function fetchUser(endpoint) {
   return {
     [CALL_API]: {
       types: [
-        API_REQUEST,
-        API_SUCCESS,
-        API_FAILURE
+        FETCH_USER_REQUEST,
+        FETCH_USER_SUCCESS,
+        FETCH_USER_FAILURE
       ],
-      endpoint: `https://api.github.com/users/${name}`
+      endpoint
     }
   };
 }
 
-function shouldFetchApi(state) {
-  return !state.isFetching;
+export function addUser(login) {
+  return (dispatch, getState) => {
+    const exists = getState().user.users.find(us => us.login === login);
+
+    if (exists) {
+      return dispatch(handleError(`${login} already exists`));
+    }
+
+    return dispatch(fetchUser(`users/${login}`));
+  };
 }
 
-export function fetchApiIfNeeded(name) {
-  return (dispatch, getState) =>
-    shouldFetchApi(getState()) && dispatch(name ? fetchUserApi(name) : fetchStatusApi());
+export const DELETE_USER = 'DELETE_USER';
+
+export function deleteUser(login) {
+  return {
+    type: DELETE_USER,
+    payload: {
+      login
+    }
+  };
 }

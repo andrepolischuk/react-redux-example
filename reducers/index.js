@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import api from './api';
+import user from './user';
 
 const rootReducer = combineReducers({
   routing,
-  api
+  user
 });
 
 export default rootReducer;
